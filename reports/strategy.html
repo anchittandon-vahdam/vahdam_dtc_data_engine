@@ -868,16 +868,18 @@ details.sb-sec[open] > summary .sb-chevron { transform: rotate(180deg); }
 
 
 
-/* ── SIDEBAR DENSITY DOTS ── */
-.sb-dots {
-  display: flex; gap: 3px; margin-left: auto; flex-shrink: 0;
-  align-items: center;
+
+
+/* ── SIDEBAR HEATMAP CHIPS ── */
+.sb-heat {
+  width: 28px; height: 9px;
+  border-radius: 3px;
+  margin-left: auto;
+  flex-shrink: 0;
+  opacity: .85;
 }
-.sb-d {
-  width: 6px; height: 6px; border-radius: 50%;
-}
-.sb-d.on  { opacity: .7; }
-.sb-d.off { background: var(--border) !important; opacity: 1; }
+details.sb-sec > summary .sb-heat { width: 32px; height: 10px; }
+.sb-standalone .sb-heat { width: 32px; height: 10px; }
 
 </style>
 </head>
@@ -910,17 +912,17 @@ details.sb-sec[open] > summary .sb-chevron { transform: rotate(180deg); }
     <summary>
       <span class="sb-sec-icon">❓</span>
       <span class="sb-sec-label">Key Questions</span>
-      <span class="sb-dots"><span class="sb-d on" style="background:#7c3aed"></span><span class="sb-d on" style="background:#7c3aed"></span><span class="sb-d on" style="background:#7c3aed"></span></span>
+      <span class="sb-heat" style="background:#b91c1c"></span>
       <svg class="sb-chevron" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="3,5 7,9 11,5"/></svg>
     </summary>
     <div class="sb-sec-body">
       <a class="sb-link sb-top" href="#questions">All Questions</a>
       <div class="sb-divider"></div>
-      <a class="sb-link" href="#qg-revenue">💰 Revenue &amp; Margin <span class="sb-dots"><span class="sb-d on" style="background:#d97706"></span><span class="sb-d on" style="background:#d97706"></span><span class="sb-d off" style="background:#d97706"></span></span></a>
-      <a class="sb-link" href="#qg-economics">📐 Customer Economics <span class="sb-dots"><span class="sb-d on" style="background:#0d9488"></span><span class="sb-d on" style="background:#0d9488"></span><span class="sb-d off" style="background:#0d9488"></span></span></a>
-      <a class="sb-link" href="#qg-retention">🔁 Retention &amp; Churn <span class="sb-dots"><span class="sb-d on" style="background:#7c3aed"></span><span class="sb-d on" style="background:#7c3aed"></span><span class="sb-d on" style="background:#7c3aed"></span></span></a>
-      <a class="sb-link" href="#qg-channel">📧 Channel &amp; Email <span class="sb-dots"><span class="sb-d on" style="background:#16a34a"></span><span class="sb-d off" style="background:#16a34a"></span><span class="sb-d off" style="background:#16a34a"></span></span></a>
-      <a class="sb-link" href="#qg-conversion">🛒 Conversion &amp; Mix <span class="sb-dots"><span class="sb-d on" style="background:#2563eb"></span><span class="sb-d on" style="background:#2563eb"></span><span class="sb-d off" style="background:#2563eb"></span></span></a>
+      <a class="sb-link" href="#qg-revenue">💰 Revenue &amp; Margin <span class="sb-heat" style="background:#fb923c"></span></a>
+      <a class="sb-link" href="#qg-economics">📐 Customer Economics <span class="sb-heat" style="background:#fb923c"></span></a>
+      <a class="sb-link" href="#qg-retention">🔁 Retention &amp; Churn <span class="sb-heat" style="background:#ef4444"></span></a>
+      <a class="sb-link" href="#qg-channel">📧 Channel &amp; Email <span class="sb-heat" style="background:#fef9c3"></span></a>
+      <a class="sb-link" href="#qg-conversion">🛒 Conversion &amp; Mix <span class="sb-heat" style="background:#fb923c"></span></a>
     </div>
   </details>
 
@@ -929,7 +931,7 @@ details.sb-sec[open] > summary .sb-chevron { transform: rotate(180deg); }
     <summary>
       <span class="sb-sec-icon">📊</span>
       <span class="sb-sec-label">Metrics Framework</span>
-      <span class="sb-dots"><span class="sb-d on" style="background:#d97706"></span><span class="sb-d on" style="background:#d97706"></span><span class="sb-d on" style="background:#d97706"></span></span>
+      <span class="sb-heat" style="background:#b91c1c"></span>
       <svg class="sb-chevron" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="3,5 7,9 11,5"/></svg>
     </summary>
     <div class="sb-sec-body">
@@ -962,21 +964,21 @@ details.sb-sec[open] > summary .sb-chevron { transform: rotate(180deg); }
     <summary>
       <span class="sb-sec-icon">🗺</span>
       <span class="sb-sec-label">Strategies</span>
-      <span class="sb-dots"><span class="sb-d on" style="background:#e11d48"></span><span class="sb-d on" style="background:#e11d48"></span><span class="sb-d on" style="background:#e11d48"></span></span>
+      <span class="sb-heat" style="background:#b91c1c"></span>
       <svg class="sb-chevron" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="3,5 7,9 11,5"/></svg>
     </summary>
     <div class="sb-sec-body">
-      <a class="sb-link sb-top" href="#s1"><span class="sb-strat" style="background:#7c3aed">S1</span>Retention Engine <span class="sb-dots"><span class="sb-d on" style="background:#7c3aed"></span><span class="sb-d on" style="background:#7c3aed"></span><span class="sb-d off" style="background:#7c3aed"></span></span></a>
-      <a class="sb-link sb-top" href="#s2"><span class="sb-strat" style="background:#0d9488">S2</span>Channel Efficiency <span class="sb-dots"><span class="sb-d on" style="background:#0d9488"></span><span class="sb-d on" style="background:#0d9488"></span><span class="sb-d on" style="background:#0d9488"></span></span></a>
-      <a class="sb-link sb-top" href="#s3"><span class="sb-strat" style="background:#d97706">S3</span>Geo Expansion <span class="sb-dots"><span class="sb-d on" style="background:#d97706"></span><span class="sb-d on" style="background:#d97706"></span><span class="sb-d off" style="background:#d97706"></span></span></a>
-      <a class="sb-link sb-top" href="#s4"><span class="sb-strat" style="background:#e11d48">S4</span>Subscription Flywheel <span class="sb-dots"><span class="sb-d on" style="background:#e11d48"></span><span class="sb-d on" style="background:#e11d48"></span><span class="sb-d on" style="background:#e11d48"></span></span></a>
-      <a class="sb-link sb-top" href="#s5"><span class="sb-strat" style="background:#2563eb">S5</span>Funnel Conversion <span class="sb-dots"><span class="sb-d on" style="background:#2563eb"></span><span class="sb-d on" style="background:#2563eb"></span><span class="sb-d on" style="background:#2563eb"></span></span></a>
+      <a class="sb-link sb-top" href="#s1"><span class="sb-strat" style="background:#7c3aed">S1</span>Retention Engine <span class="sb-heat" style="background:#fb923c"></span></a>
+      <a class="sb-link sb-top" href="#s2"><span class="sb-strat" style="background:#0d9488">S2</span>Channel Efficiency <span class="sb-heat" style="background:#b91c1c"></span></a>
+      <a class="sb-link sb-top" href="#s3"><span class="sb-strat" style="background:#d97706">S3</span>Geo Expansion <span class="sb-heat" style="background:#fde68a"></span></a>
+      <a class="sb-link sb-top" href="#s4"><span class="sb-strat" style="background:#e11d48">S4</span>Subscription Flywheel <span class="sb-heat" style="background:#ef4444"></span></a>
+      <a class="sb-link sb-top" href="#s5"><span class="sb-strat" style="background:#2563eb">S5</span>Funnel Conversion <span class="sb-heat" style="background:#ef4444"></span></a>
     </div>
   </details>
 
   <div class="sb-divider"></div>
-  <a class="sb-standalone" href="#arch">🏗 &nbsp;Data Architecture <span class="sb-dots"><span class="sb-d on" style="background:#2563eb"></span><span class="sb-d on" style="background:#2563eb"></span><span class="sb-d on" style="background:#2563eb"></span></span></a>
-  <a class="sb-standalone" href="#roadmap">🗓 &nbsp;Roadmap <span class="sb-dots"><span class="sb-d on" style="background:#d97706"></span><span class="sb-d on" style="background:#d97706"></span><span class="sb-d off" style="background:#d97706"></span></span></a>
+  <a class="sb-standalone" href="#arch">🏗 &nbsp;Data Architecture <span class="sb-heat" style="background:#b91c1c"></span></a>
+  <a class="sb-standalone" href="#roadmap">🗓 &nbsp;Roadmap <span class="sb-heat" style="background:#fde68a"></span></a>
 </aside>
 <div id="main">
 <!-- HERO -->
