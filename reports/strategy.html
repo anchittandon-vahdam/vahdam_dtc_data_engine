@@ -485,12 +485,143 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
   transition:transform .18s; display:inline-block;
 }
 
+
+/* ── LAYOUT ── */
+#layout { display:flex; align-items:flex-start; }
+#main   { flex:1; min-width:0; overflow:hidden; }
+
+/* ── SIDEBAR ── */
+#sidebar {
+  position: sticky;
+  top: 56px;
+  width: 248px;
+  min-width: 248px;
+  height: calc(100vh - 56px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-shrink: 0;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  padding: 12px 0 48px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+  z-index: 50;
+}
+#sidebar::-webkit-scrollbar { width:4px; }
+#sidebar::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+
+.sb-brand {
+  padding: 10px 16px 14px;
+  font-size: .72rem; font-weight: 800; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--text3);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+.sb-brand strong { color: var(--amber); }
+
+/* section accordion */
+details.sb-sec { }
+details.sb-sec > summary {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 16px;
+  cursor: pointer; list-style: none; user-select: none;
+  font-size: .78rem; font-weight: 700; color: var(--text);
+}
+details.sb-sec > summary::-webkit-details-marker { display: none; }
+details.sb-sec > summary:hover { background: var(--bg3); }
+.sb-sec-icon { font-size: .9rem; flex-shrink:0; }
+.sb-sec-label { flex:1; }
+.sb-chevron {
+  width: 14px; height: 14px; flex-shrink: 0; color: var(--text3);
+  transition: transform .18s;
+}
+details.sb-sec[open] > summary .sb-chevron { transform: rotate(180deg); }
+
+.sb-sec-body { padding: 0 0 6px; }
+
+/* links */
+.sb-link {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 16px 5px 32px;
+  font-size: .76rem; color: var(--text2); text-decoration: none;
+  border-radius: 0; transition: background .12s, color .12s;
+  line-height: 1.35;
+}
+.sb-link:hover { background: var(--bg3); color: var(--text); }
+.sb-link.active { color: var(--purple); font-weight: 600; background: var(--purple-light); }
+.sb-link.sb-top { padding-left: 16px; font-weight: 600; color: var(--text); }
+.sb-link.sb-top:hover { color: var(--purple); }
+
+/* group label inside accordion */
+.sb-glabel {
+  padding: 8px 16px 3px 20px;
+  font-size: .64rem; font-weight: 800; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--text3);
+  margin-top: 4px;
+}
+.sb-dot {
+  width: 6px; height: 6px; border-radius: 50%; flex-shrink:0;
+  display: inline-block; margin-right: 4px;
+}
+.sb-strat {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; border-radius: 4px;
+  font-size: .62rem; font-weight: 800; color: #fff; flex-shrink: 0;
+}
+.sb-divider { height: 1px; background: var(--border); margin: 6px 12px; }
+.sb-standalone {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 16px;
+  font-size: .78rem; font-weight: 700; color: var(--text);
+  text-decoration: none; transition: background .12s;
+}
+.sb-standalone:hover { background: var(--bg3); color: var(--purple); }
+.sb-standalone.active { color: var(--purple); background: var(--purple-light); }
+
+/* mobile toggle */
+#sb-toggle {
+  display: none;
+  align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--bg3);
+  cursor: pointer; flex-shrink: 0;
+  color: var(--text2);
+}
+#sb-overlay {
+  display: none;
+  position: fixed; inset: 0; background: rgba(0,0,0,.4);
+  z-index: 49;
+}
+
+@media (max-width: 960px) {
+  #sidebar {
+    position: fixed;
+    left: -260px;
+    top: 56px;
+    transition: left .22s cubic-bezier(.4,0,.2,1);
+    box-shadow: none;
+  }
+  #sidebar.sb-open {
+    left: 0;
+    box-shadow: 4px 0 24px rgba(0,0,0,.18);
+  }
+  #sb-overlay.sb-open { display: block; }
+  #sb-toggle { display: flex; }
+  #main { width: 100%; }
+}
+
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav id="nav">
+<nav id="nav"><button id="sb-toggle" aria-label="Toggle menu" onclick="toggleSidebar()">
+  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
+    <line x1="2" y1="5"  x2="16" y2="5"/>
+    <line x1="2" y1="9"  x2="16" y2="9"/>
+    <line x1="2" y1="13" x2="16" y2="13"/>
+  </svg>
+</button>
   <span class="nav-brand">VAHDAM <span>DTC</span></span>
   <a class="pill" href="#questions" style="color:var(--text);border-color:var(--border)">🔍 Key Questions</a>
   <a class="pill p1" href="#s1">⚡ Retention Engine</a>
@@ -500,6 +631,81 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
   <a class="pill p5" href="#s5">🎯 Funnel Conversion</a>
 </nav>
 
+<div id="sb-overlay" onclick="toggleSidebar()"></div>
+<div id="layout">
+<aside id="sidebar">
+  <div class="sb-brand">VAHDAM &nbsp;<strong>DTC Analytics</strong></div>
+
+  <!-- KEY QUESTIONS -->
+  <details class="sb-sec" open>
+    <summary>
+      <span class="sb-sec-icon">❓</span>
+      <span class="sb-sec-label">Key Questions</span>
+      <svg class="sb-chevron" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="3,5 7,9 11,5"/></svg>
+    </summary>
+    <div class="sb-sec-body">
+      <a class="sb-link sb-top" href="#questions">All 19 Questions</a>
+      <div class="sb-divider"></div>
+      <a class="sb-link" href="#qg-revenue">💰 Revenue &amp; Margin</a>
+      <a class="sb-link" href="#qg-economics">📐 Customer Economics</a>
+      <a class="sb-link" href="#qg-retention">🔁 Retention &amp; Churn</a>
+      <a class="sb-link" href="#qg-channel">📧 Channel &amp; Email</a>
+      <a class="sb-link" href="#qg-conversion">🛒 Conversion &amp; Mix</a>
+    </div>
+  </details>
+
+  <!-- METRICS FRAMEWORK -->
+  <details class="sb-sec" open>
+    <summary>
+      <span class="sb-sec-icon">📊</span>
+      <span class="sb-sec-label">Metrics Framework</span>
+      <svg class="sb-chevron" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="3,5 7,9 11,5"/></svg>
+    </summary>
+    <div class="sb-sec-body">
+      <a class="sb-link sb-top" href="#overview">Overview &amp; Pyramid</a>
+      <div class="sb-glabel">Tier 1 — Business Health</div>
+      <a class="sb-link" href="#metric-m1"><span class="sb-dot" style="background:#d97706"></span>M1 · Net Revenue by Market</a>
+      <a class="sb-link" href="#metric-m2"><span class="sb-dot" style="background:#d97706"></span>M2 · New vs Returning</a>
+      <a class="sb-link" href="#metric-m3"><span class="sb-dot" style="background:#0d9488"></span>M3 · LTV:CAC by Channel</a>
+      <a class="sb-link" href="#metric-m4"><span class="sb-dot" style="background:#7c3aed"></span>M4 · Repeat Rate 90d</a>
+      <a class="sb-link" href="#metric-m5"><span class="sb-dot" style="background:#d97706"></span>M5 · Gross Margin %</a>
+      <div class="sb-glabel">Tier 2 — Growth Levers</div>
+      <a class="sb-link" href="#metric-m6"><span class="sb-dot" style="background:#0d9488"></span>M6 · CAC by Channel</a>
+      <a class="sb-link" href="#metric-m7"><span class="sb-dot" style="background:#7c3aed"></span>M7 · Email Revenue %</a>
+      <a class="sb-link" href="#metric-m8"><span class="sb-dot" style="background:#d97706"></span>M8 · AOV Trend MoM</a>
+      <a class="sb-link" href="#metric-m9"><span class="sb-dot" style="background:#2563eb"></span>M9 · Checkout Funnel</a>
+      <a class="sb-link" href="#metric-m10"><span class="sb-dot" style="background:#e11d48"></span>M10 · Subscription Mix</a>
+      <div class="sb-glabel">Tier 3 — Retention Intel</div>
+      <a class="sb-link" href="#metric-m11"><span class="sb-dot" style="background:#7c3aed"></span>M11 · Cohort Retention</a>
+      <a class="sb-link" href="#metric-m12"><span class="sb-dot" style="background:#7c3aed"></span>M12 · Time to 2nd Purchase</a>
+      <a class="sb-link" href="#metric-m13"><span class="sb-dot" style="background:#7c3aed"></span>M13 · Churn Risk</a>
+      <a class="sb-link" href="#metric-m14"><span class="sb-dot" style="background:#e11d48"></span>M14 · At-Risk Revenue</a>
+      <a class="sb-link" href="#metric-m15"><span class="sb-dot" style="background:#e11d48"></span>M15 · Product Repeat Rate</a>
+      <a class="sb-link" href="#metric-bonus"><span class="sb-dot" style="background:#0d9488"></span>BONUS · LTV by Market</a>
+    </div>
+  </details>
+
+  <!-- STRATEGIES -->
+  <details class="sb-sec" open>
+    <summary>
+      <span class="sb-sec-icon">🗺</span>
+      <span class="sb-sec-label">Strategies</span>
+      <svg class="sb-chevron" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="3,5 7,9 11,5"/></svg>
+    </summary>
+    <div class="sb-sec-body">
+      <a class="sb-link sb-top" href="#s1"><span class="sb-strat" style="background:#7c3aed">S1</span>Retention Engine</a>
+      <a class="sb-link sb-top" href="#s2"><span class="sb-strat" style="background:#0d9488">S2</span>Channel Efficiency</a>
+      <a class="sb-link sb-top" href="#s3"><span class="sb-strat" style="background:#d97706">S3</span>Geo Expansion</a>
+      <a class="sb-link sb-top" href="#s4"><span class="sb-strat" style="background:#e11d48">S4</span>Subscription Flywheel</a>
+      <a class="sb-link sb-top" href="#s5"><span class="sb-strat" style="background:#2563eb">S5</span>Funnel Conversion</a>
+    </div>
+  </details>
+
+  <div class="sb-divider"></div>
+  <a class="sb-standalone" href="#arch">🏗 &nbsp;Data Architecture</a>
+  <a class="sb-standalone" href="#roadmap">🗓 &nbsp;Roadmap</a>
+</aside>
+<div id="main">
 <!-- HERO -->
 <div id="hero">
   <div class="hero-eyebrow">Growth Intelligence Report</div>
@@ -523,7 +729,7 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
   <p class="section-sub">Every metric exists to answer a specific business question. Below are the 18 questions VAHDAM's data layer is built to answer — including 5 cross-source combinations that are only possible when all four data sources are loaded together. Single-source metrics are straightforward; combination metrics are where the real edge is.</p>
 
   <!-- GROUP A: REVENUE & MARGIN -->
-  <details class="q-group-wrap" open>
+  <details id="qg-revenue" class="q-group-wrap" open>
 <summary>
 <div class="q-group-header" style="display:flex;align-items:center">
   <span class="q-group-icon">💰</span>
@@ -592,7 +798,7 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
 
 
   <!-- GROUP B: CUSTOMER ECONOMICS -->
-  <details class="q-group-wrap" open>
+  <details id="qg-economics" class="q-group-wrap" open>
 <summary>
 <div class="q-group-header" style="display:flex;align-items:center">
   <span class="q-group-icon">📐</span>
@@ -666,7 +872,7 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
 
 
   <!-- GROUP C: RETENTION -->
-  <details class="q-group-wrap" open>
+  <details id="qg-retention" class="q-group-wrap" open>
 <summary>
 <div class="q-group-header" style="display:flex;align-items:center">
   <span class="q-group-icon">🔁</span>
@@ -750,7 +956,7 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
 
 
   <!-- GROUP D: CHANNEL & EMAIL -->
-  <details class="q-group-wrap" open>
+  <details id="qg-channel" class="q-group-wrap" open>
 <summary>
 <div class="q-group-header" style="display:flex;align-items:center">
   <span class="q-group-icon">📧</span>
@@ -796,7 +1002,7 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
 
 
   <!-- GROUP E: CONVERSION & MIX -->
-  <details class="q-group-wrap" open>
+  <details id="qg-conversion" class="q-group-wrap" open>
 <summary>
 <div class="q-group-header" style="display:flex;align-items:center">
   <span class="q-group-icon">🎯</span>
@@ -948,7 +1154,7 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
     <span style="margin-left:auto;font-size:.68rem;font-weight:600;color:var(--text3)">Weekly Review</span>
   </div>
 
-  <details class="m-row" style="--accent:#d97706">
+  <details id="metric-m1" class="m-row" style="--accent:#d97706">
     <summary class="m-row-summary">
       <span class="m-badge" style="background:#d97706">M1</span>
       <span class="m-name">Net Revenue by Market</span>
@@ -972,7 +1178,7 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
     </div>
   </details>
 
-  <details class="m-row" style="--accent:#d97706">
+  <details id="metric-m2" class="m-row" style="--accent:#d97706">
     <summary class="m-row-summary">
       <span class="m-badge" style="background:#d97706">M2</span>
       <span class="m-name">New vs Returning Revenue</span>
@@ -996,7 +1202,7 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
     </div>
   </details>
 
-  <details class="m-row" style="--accent:#0d9488">
+  <details id="metric-m3" class="m-row" style="--accent:#0d9488">
     <summary class="m-row-summary">
       <span class="m-badge" style="background:#0d9488">M3</span>
       <span class="m-name">LTV:CAC Ratio by Channel</span>
@@ -1020,7 +1226,7 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
     </div>
   </details>
 
-  <details class="m-row" style="--accent:#7c3aed">
+  <details id="metric-m4" class="m-row" style="--accent:#7c3aed">
     <summary class="m-row-summary">
       <span class="m-badge" style="background:#7c3aed">M4</span>
       <span class="m-name">Repeat Purchase Rate 90d</span>
@@ -1044,7 +1250,7 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
     </div>
   </details>
 
-  <details class="m-row" style="--accent:#d97706">
+  <details id="metric-m5" class="m-row" style="--accent:#d97706">
     <summary class="m-row-summary">
       <span class="m-badge" style="background:#d97706">M5</span>
       <span class="m-name">Gross Margin % by Product Type</span>
@@ -1074,7 +1280,7 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
     <span style="margin-left:auto;font-size:.68rem;font-weight:600;color:var(--text3)">Weekly Review</span>
   </div>
 
-  <details class="m-row" style="--accent:#0d9488">
+  <details id="metric-m6" class="m-row" style="--accent:#0d9488">
     <summary class="m-row-summary">
       <span class="m-badge" style="background:#0d9488">M6</span>
       <span class="m-name">CAC by Channel</span>
@@ -1098,7 +1304,7 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
     </div>
   </details>
 
-  <details class="m-row" style="--accent:#7c3aed">
+  <details id="metric-m7" class="m-row" style="--accent:#7c3aed">
     <summary class="m-row-summary">
       <span class="m-badge" style="background:#7c3aed">M7</span>
       <span class="m-name">Email Revenue % by Month</span>
@@ -1122,7 +1328,7 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
     </div>
   </details>
 
-  <details class="m-row" style="--accent:#d97706">
+  <details id="metric-m8" class="m-row" style="--accent:#d97706">
     <summary class="m-row-summary">
       <span class="m-badge" style="background:#d97706">M8</span>
       <span class="m-name">AOV Trend MoM</span>
@@ -1146,7 +1352,7 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
     </div>
   </details>
 
-  <details class="m-row" style="--accent:#2563eb">
+  <details id="metric-m9" class="m-row" style="--accent:#2563eb">
     <summary class="m-row-summary">
       <span class="m-badge" style="background:#2563eb">M9</span>
       <span class="m-name">Checkout Conversion Funnel</span>
@@ -1170,7 +1376,7 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
     </div>
   </details>
 
-  <details class="m-row" style="--accent:#e11d48">
+  <details id="metric-m10" class="m-row" style="--accent:#e11d48">
     <summary class="m-row-summary">
       <span class="m-badge" style="background:#e11d48">M10</span>
       <span class="m-name">Subscription Mix %</span>
@@ -1200,7 +1406,7 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
     <span style="margin-left:auto;font-size:.68rem;font-weight:600;color:var(--text3)">Monthly Review</span>
   </div>
 
-  <details class="m-row" style="--accent:#7c3aed">
+  <details id="metric-m11" class="m-row" style="--accent:#7c3aed">
     <summary class="m-row-summary">
       <span class="m-badge" style="background:#7c3aed">M11</span>
       <span class="m-name">Cohort Retention 30/60/90d</span>
@@ -1224,7 +1430,7 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
     </div>
   </details>
 
-  <details class="m-row" style="--accent:#7c3aed">
+  <details id="metric-m12" class="m-row" style="--accent:#7c3aed">
     <summary class="m-row-summary">
       <span class="m-badge" style="background:#7c3aed">M12</span>
       <span class="m-name">Time to 2nd Purchase</span>
@@ -1248,7 +1454,7 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
     </div>
   </details>
 
-  <details class="m-row" style="--accent:#7c3aed">
+  <details id="metric-m13" class="m-row" style="--accent:#7c3aed">
     <summary class="m-row-summary">
       <span class="m-badge" style="background:#7c3aed">M13</span>
       <span class="m-name">Churn Risk Distribution</span>
@@ -1272,7 +1478,7 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
     </div>
   </details>
 
-  <details class="m-row" style="--accent:#e11d48">
+  <details id="metric-m14" class="m-row" style="--accent:#e11d48">
     <summary class="m-row-summary">
       <span class="m-badge" style="background:#e11d48">M14</span>
       <span class="m-name">At-Risk Revenue</span>
@@ -1296,7 +1502,7 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
     </div>
   </details>
 
-  <details class="m-row" style="--accent:#e11d48">
+  <details id="metric-m15" class="m-row" style="--accent:#e11d48">
     <summary class="m-row-summary">
       <span class="m-badge" style="background:#e11d48">M15</span>
       <span class="m-name">Product Repeat Rate (Top 10)</span>
@@ -1320,7 +1526,7 @@ details.q-group-wrap[open] > summary .q-chevron { transform:rotate(180deg); }
     </div>
   </details>
 
-  <details class="m-row" style="--accent:#0d9488">
+  <details id="metric-bonus" class="m-row" style="--accent:#0d9488">
     <summary class="m-row-summary">
       <span class="m-badge" style="background:#0d9488">BONUS</span>
       <span class="m-name">LTV by Market</span>
@@ -2059,6 +2265,53 @@ pivoted <span class="kw">AS</span> (
   <p>Built with <a href="https://duckdb.org" target="_blank">DuckDB</a> + Claude &nbsp;·&nbsp; 4 schemas · 46 tables · 15 metrics · 5 strategies</p>
   <p style="margin-top:10px;font-size:.75rem;color:#484f58">Data sources: Matrixify · Shopify Analytics · Klaviyo · WebEngage &nbsp;|&nbsp; All SQL in queries/metrics.sql</p>
 </footer>
+</div><!-- #main -->
+</div><!-- #layout -->
+
+<script>
+// Mobile sidebar toggle
+function toggleSidebar() {
+  const sb = document.getElementById('sidebar');
+  const ov = document.getElementById('sb-overlay');
+  sb.classList.toggle('sb-open');
+  ov.classList.toggle('sb-open');
+}
+
+// Active link via IntersectionObserver
+(function() {
+  const links = document.querySelectorAll('#sidebar a[href^="#"]');
+  const targets = new Map();
+  links.forEach(l => {
+    const id = l.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if (el) targets.set(id, l);
+  });
+
+  let lastActive = null;
+  const activate = (id) => {
+    if (id === lastActive) return;
+    links.forEach(l => l.classList.remove('active'));
+    const link = targets.get(id);
+    if (link) {
+      link.classList.add('active');
+      // scroll link into view inside sidebar
+      link.scrollIntoView({ block: 'nearest' });
+    }
+    lastActive = id;
+  };
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) activate(e.target.id);
+    });
+  }, { rootMargin: '-10% 0px -75% 0px', threshold: 0 });
+
+  targets.forEach((_, id) => {
+    const el = document.getElementById(id);
+    if (el) io.observe(el);
+  });
+})();
+</script>
 
 </body>
 </html>
