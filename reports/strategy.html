@@ -904,11 +904,12 @@ details.sb-sec > summary .sb-heat { width: 32px; height: 10px; }
 #mm-viewport {
   position: absolute;
   left: 0; right: 0;
-  background: rgba(255,255,255,.35);
-  border-top: 1px solid rgba(255,255,255,.7);
-  border-bottom: 1px solid rgba(255,255,255,.7);
+  background: rgba(255,255,255,.55);
+  border-top: 2px solid rgba(255,255,255,.95);
+  border-bottom: 2px solid rgba(255,255,255,.95);
   pointer-events: none;
   transition: top .08s linear;
+  min-height: 12px;
 }
 @media (prefers-color-scheme: dark) {
   #mm-viewport {
@@ -3373,22 +3374,30 @@ window.addEventListener('scroll', function() {
   }
 
   // Click on minimap track to scroll proportionally
-  document.addEventListener('DOMContentLoaded', function() {
+  function init() {
     buildMinimap();
+    // Re-measure after fonts/layout settle
+    setTimeout(buildMinimap, 400);
 
     var map = document.getElementById('sb-minimap');
     if (map) {
       map.addEventListener('click', function(e) {
-        if (e.target.classList.contains('mm-seg')) return; // handled by seg
-        var rect   = map.getBoundingClientRect();
-        var ratio  = (e.clientY - rect.top) / rect.height;
+        if (e.target.classList.contains('mm-seg')) return;
+        var rect  = map.getBoundingClientRect();
+        var ratio = (e.clientY - rect.top) / rect.height;
         window.scrollTo({ top: ratio * document.body.scrollHeight, behavior: 'smooth' });
       });
     }
 
     window.addEventListener('scroll', updateViewport, { passive: true });
     window.addEventListener('resize', buildMinimap,   { passive: true });
-  });
+  }
+
+  if (document.readyState === 'complete') {
+    init();
+  } else {
+    window.addEventListener('load', init);
+  }
 })();
 </script>
 
